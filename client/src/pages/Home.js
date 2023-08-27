@@ -1,23 +1,35 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useRef } from 'react'
 import { Avatar } from '@web3uikit/core'
 import { Image } from '@web3uikit/icons'
 import { defaultImgs } from '../defaultImgs'
 import './Home.css'
 
 const Home = () => {
+  const inputFile = useRef(null)
+  const [selectedImage, setSelectedImage] = useState()
+  const [tweetText, setTweetText] = useState('')
+
+  const onImageClick = () => {
+    inputFile.current.click()
+  }
+
+  const changeHandler = (event) => {
+    const imgFile = event.target.files[0]
+    setSelectedImage(URL.createObjectURL(imgFile))
+  }
   return (
     <>
       <div className='mainContent'>
         <div className='profileTweet'>
           <div className='tweetSection'>
-            <Avatar isRounded image={userImage} theme='image' size={60} />
+            <Avatar isRounded image={defaultImgs[0]} theme='image' size={60} />
             <textarea
-              value={tweetText}
               className='textArea'
               placeholder="What's going on ?"
               name='tweetTxtArea'
-              onChange={(e) => setTweetText(e.target.value)}
+              onChange={(e) => {
+                setTweetText(e.target.value)
+              }}
             ></textarea>
           </div>
           <div className='tweetSection'>
@@ -34,12 +46,9 @@ const Home = () => {
                 <Image fontSize={25} fill='#ffffff' />
               )}
             </div>
-            <div className='tweet' onClick={addTweet}>
-              {uploading ? <Loading /> : 'Tweet'}
-            </div>
+            <div className='tweet'>Tweet</div>
           </div>
         </div>
-        <TweetInFeed profile={false} reload={uploading} />
       </div>
     </>
   )
