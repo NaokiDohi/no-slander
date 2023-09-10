@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react'
 import { Avatar } from '@web3uikit/core'
 import { Image } from '@web3uikit/icons'
 import { defaultImgs } from '../defaultImgs'
+import TweetInFeed from '../components/TweetInFeed'
 import './Home.css'
 
 const Home = () => {
@@ -49,6 +50,7 @@ const Home = () => {
             <div className='tweet'>Tweet</div>
           </div>
         </div>
+        <TweetInFeed profile={false} />
       </div>
     </>
   )
